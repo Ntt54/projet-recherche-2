@@ -1,0 +1,183 @@
+# LISEZ_MOI - Laboratoire de Recherche IUT Fotso Victor
+
+## Installation du Projet URAIA
+
+### Prérequis
+- XAMPP installé (Apache 2.4+, MySQL 8.x / MariaDB)
+- PHP 8.x
+- Navigateur web moderne (Chrome, Firefox, Edge)
+
+### Procédure d'Installation
+
+#### Étape 1 : Copier les fichiers
+1. Copiez le dossier `labo-iut-fotso/` dans `C:/xampp/htdocs/`
+2. Assurez-vous que la structure suivante est respectée :
+   ```
+   C:/xampp/htdocs/labo-iut-fotso/
+   ├── admin/
+   ├── includes/
+   ├── css/
+   ├── js/
+   ├── uploads/
+   ├── database/
+   └── ... (autres fichiers PHP)
+   ```
+
+#### Étape 2 : Démarrer les services XAMPP
+1. Ouvrez le panneau de contrôle XAMPP
+2. Démarrez **Apache**
+3. Démarrez **MySQL**
+
+#### Étape 3 : Créer la base de données
+1. Ouvrez phpMyAdmin : http://localhost/phpmyadmin
+2. Connectez-vous avec :
+   - Utilisateur : `root`
+   - Mot de passe : `root`
+3. Cliquez sur l'onglet "Importer"
+4. Sélectionnez le fichier `database/labnet.sql`
+5. Cliquez sur "Exécuter"
+
+La base de données `labnet` sera créée avec toutes les tables et données exemples.
+
+#### Étape 4 : Accéder au site
+- **Site public** : http://localhost/labo-iut-fotso/
+- **Panel Admin** : http://localhost/labo-iut-fotso/admin/login.php
+
+### Identifiants Admin (pour démonstration)
+Le panel admin utilise une connexion automatique pour les besoins de la présentation.
+Aucun identifiant n'est requis - il suffit de cliquer sur "Connexion".
+
+Pour un usage en production, modifier `admin/login.php` et utiliser :
+- Email : `admin@iutfv.cm`
+- Mot de passe : `Admin@2026`
+
+### Structure de la Base de Données
+
+#### Tables principales :
+1. **laboratoire** - Informations sur le laboratoire
+2. **equipe** - Équipes de recherche
+3. **membre** - Chercheurs/membres du laboratoire
+4. **bureau** - Bureau du laboratoire (direction)
+5. **mandat** - Périodes des mandats
+6. **projet** - Projets de recherche
+7. **collaboration** - Bailleurs/financeurs
+8. **participer** - Liaison projets ↔ bailleurs
+9. **intervenir** - Liaison projets ↔ chercheurs
+10. **affecter** - Liaison chercheurs ↔ équipes
+11. **publications** - Publications scientifiques
+12. **users** - Utilisateurs (authentification)
+13. **requetes** - Messages de contact
+14. **document** - Documents liés aux projets
+15. **ressource** - Matériel/outils du labo
+16. **education** - Formations dispensées
+
+### Fonctionnalités Clés
+
+#### Site Public
+- ✅ Page d'accueil avec statistiques et dernières actualités
+- ✅ Présentation du laboratoire (À propos)
+- ✅ Liste des équipes de recherche avec membres
+- ✅ Annuaire des chercheurs avec filtrage
+- ✅ Publications filtrables par équipe et période
+- ✅ Projets avec chefs, membres et bailleurs
+- ✅ Calendrier des événements
+- ✅ Fil d'actualités
+- ✅ Liste des partenaires
+- ✅ Formulaire de contact fonctionnel
+
+#### Panel Admin
+- ✅ Dashboard avec statistiques dynamiques
+- ✅ CRUD complet pour toutes les entités
+- ✅ Gestion des équipes
+- ✅ Gestion des chercheurs
+- ✅ Gestion des publications
+- ✅ Gestion des projets
+- ✅ Gestion des collaborations
+- ✅ Gestion des événements
+- ✅ Gestion des actualités
+- ✅ Consultation des messages de contact
+- ✅ Gestion des utilisateurs
+- ✅ Gestion des documents
+- ✅ Gestion des ressources
+
+### Technologies Utilisées
+
+#### Backend
+- PHP 8.x (Programmation Orientée Objet simple)
+- PDO pour les requêtes préparées
+- MySQL 8.x / MariaDB
+
+#### Frontend
+- HTML5 sémantique
+- CSS3 avec variables CSS
+- JavaScript vanilla (ES6+)
+- Font Awesome 6 (icônes)
+- Google Fonts (Poppins, Montserrat, Open Sans)
+
+#### Design
+- Thème "Corporate Moderne" (Nexus Flow)
+- Palette : Bleu Foncé (#1B3A6B), Violet (#6C3483), Vert (#2ECC71)
+- Mode clair/sombre basculable
+- Responsive design (mobile-first)
+
+### Sécurité
+
+- ✅ Requêtes préparées PDO (protection SQL injection)
+- ✅ htmlspecialchars() en sortie (protection XSS)
+- ✅ Tokens CSRF dans les formulaires
+- ✅ Validation des uploads (type MIME réel)
+- ✅ Limite de taille des fichiers (100 Mo)
+- ✅ .htaccess dans uploads/ pour bloquer l'exécution PHP
+
+### Personnalisation
+
+#### Modifier la connexion BDD
+Éditez `includes/db.php` :
+```php
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'labnet');
+define('DB_USER', 'root');
+define('DB_PASS', 'root');
+```
+
+#### Changer le logo
+Remplacez les images dans `uploads/logos/`
+
+#### Modifier les couleurs
+Éditez les variables CSS dans `css/style.css` :
+```css
+:root {
+    --color-primary: #1B3A6B;
+    --color-secondary: #6C3483;
+    --color-accent: #2ECC71;
+}
+```
+
+### Dépannage
+
+#### Erreur de connexion à la base de données
+- Vérifiez que MySQL est démarré dans XAMPP
+- Vérifiez les identifiants dans `includes/db.php`
+- Assurez-vous que la base `labnet` existe
+
+#### Pages blanches
+- Vérifiez qu'Apache est démarré
+- Consultez les logs d'erreur Apache (`xampp/apache/logs/error.log`)
+- Activez l'affichage des erreurs (déjà activé par défaut)
+
+#### Uploads ne fonctionnent pas
+- Vérifiez les permissions du dossier `uploads/`
+- Vérifiez la configuration `upload_max_filesize` dans `php.ini`
+- Vérifiez `post_max_size` dans `php.ini`
+
+### Support
+
+Pour toute question ou problème, contactez :
+- Email : contact@iutfv.cm
+- Téléphone : +237 600 00 00 00
+
+---
+
+**Développé par URAIA** © 2026  
+Laboratoire de Recherche IUT Fotso Victor de Bandjoun  
+Université de Dschang - Cameroun
